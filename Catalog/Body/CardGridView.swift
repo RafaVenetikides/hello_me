@@ -7,7 +7,8 @@
 import SwiftUI
 
 struct CardGridView: View {
-    let numberOfCards: Int
+    let memes: [MemeModel]
+    let onSelect: (MemeModel) -> Void
 
     private let columns = [
         GridItem(.flexible()),
@@ -16,19 +17,15 @@ struct CardGridView: View {
 
     var body: some View {
         LazyVGrid(columns: columns, spacing: 16) {
-            ForEach(0..<numberOfCards, id: \.self) { index in
+            ForEach(memes) { meme in
                 CardView(
-                    title: "Meme \(index + 1)",
-                    imageName: "bogos_binted"
-                )
+                    title: meme.title,
+                    imageName: meme.imageName
+                ) {
+                    onSelect(meme)
+                }
             }
         }
         .padding(.horizontal)
     }
-}
-
-#Preview {
-    CardGridView(numberOfCards: 4)
-        .preferredColorScheme(.dark)
-        .background(Color.black)
 }
