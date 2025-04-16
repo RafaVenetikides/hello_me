@@ -12,14 +12,22 @@ struct DetailsView: View {
         ZStack{
             Color.black
                 .ignoresSafeArea()
-            VStack (alignment: .leading, spacing: 16){
+            VStack (alignment: .leading){
                 Text("Bogos Binted")
                     .padding(.top)
                     .padding(.horizontal)
                     .font(.custom("Futura", size: 30))
                     .foregroundColor(.white)
-                Divider()
-                    .background((Color.white))
+                
+                HStack{
+                    Spacer()
+                    Rectangle()
+                        .frame(width: 370 ,height: 1)
+                        .foregroundStyle(.white)
+                        .padding(.bottom, -16)
+                    Spacer()
+                }
+                
                 ScrollView{
                     VStack(spacing: 20){
                         Image("bogos_binted")
