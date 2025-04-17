@@ -25,6 +25,7 @@ struct CardGridView: View {
                     onSelect(meme)
                 }
             }
+            NewCardView()
         }
         .padding(.horizontal)
     }

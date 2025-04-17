@@ -27,9 +27,9 @@ struct CardView: View {
         .padding(8)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(isPressed ? Color.gray.opacity(0.6) : Color.gray.opacity(0.2))
+                .fill(isPressed ? Color.gray.opacity(0.35) : Color.gray.opacity(0.2))
         )
-        .frame(width: 150)
+        .frame(width: 150, height: 165)
         .scaleEffect(isPressed ? 0.95 : 1.0)
         .animation(.easeInOut(duration: 0.1), value: isPressed)
         .onTapGesture {
