@@ -9,5 +9,5 @@ import SwiftUI
 struct MemeModel: Identifiable, Hashable {
     let id = UUID()
     let title: String
-    let imageName: String
+    let image: UIImage?
 }

@@ -9,6 +9,7 @@ import SwiftUI
 struct CardGridView: View {
     let memes: [MemeModel]
     let onSelect: (MemeModel) -> Void
+    let onCreate: () -> Void
 
     private let columns = [
         GridItem(.flexible()),
@@ -20,12 +21,14 @@ struct CardGridView: View {
             ForEach(memes) { meme in
                 CardView(
                     title: meme.title,
-                    imageName: meme.imageName
+                    image: meme.image
                 ) {
                     onSelect(meme)
                 }
             }
-            NewCardView()
+            NewCardView(){
+                onCreate()
+            }
         }
         .padding(.horizontal)
     }

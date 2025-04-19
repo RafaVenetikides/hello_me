@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NewCardView: View {
+    var onTap: () -> Void = { }
     @State private var isPressed = false
     
     var body: some View {
@@ -27,13 +28,15 @@ struct NewCardView: View {
         .simultaneousGesture(
             DragGesture(minimumDistance: 0)
                 .onChanged { _ in isPressed = true }
-                .onEnded { _ in isPressed = false }
+                .onEnded { _ in
+                    isPressed = false
+                    onTap()}
         )
     }
 }
 
 #Preview {
-    NewCardView()
+    NewCardView{print("New card tapped!")}
         .preferredColorScheme(.dark)
         .background(Color.black)
 }

@@ -2,10 +2,10 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selectedMeme: MemeModel?
-    
-    let memes: [MemeModel] = (1...10).map{
-        MemeModel(title: "Meme \($0)", imageName: "bogos_binted")
-    }
+    @State private var memes: [MemeModel] = [
+        MemeModel(title: "Meme 1", image: UIImage(named: "bogos_binted"))
+    ]
+    @State private var isCreatingNew: Bool = false
     
     var body: some View {
         NavigationStack{
@@ -15,6 +15,7 @@ struct ContentView: View {
                 
                 ScrollView{
                     Spacer(minLength: 16)
+                    
                     VStack {
                         ProfileHeaderView()
                         
@@ -22,8 +23,9 @@ struct ContentView: View {
                             .frame(width: 340)
                             .padding(.bottom, 16)
                         
-                        CardGridView(memes: memes) { meme in
-                            selectedMeme = meme}
+                        CardGridView(memes: memes,
+                                     onSelect: {meme in selectedMeme = meme},
+                                     onCreate: { isCreatingNew = true})
                     }
                 }
                 .scrollIndicators(.hidden)
@@ -31,6 +33,10 @@ struct ContentView: View {
             }
             .navigationDestination(item: $selectedMeme) {
                 meme in DetailsView()
+            }
+            .navigationDestination(isPresented: $isCreatingNew) {
+                CreateCardView { newMeme in
+                    memes.append(newMeme)}
             }
         }
     }

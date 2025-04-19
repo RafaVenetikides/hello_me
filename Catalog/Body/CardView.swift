@@ -9,17 +9,28 @@ import SwiftUI
 
 struct CardView: View {
     let title: String
-    let imageName: String
+    let image: UIImage?
     var onTap: (() -> Void)? = nil
     
     @State private var isPressed = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8){
-            Image(imageName)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 140, height: 120)
+            if let uiImage = image {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 140, height: 120)
+            } else {
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(.gray.opacity(0.3))
+                    .frame(width: 140, height: 120)
+                    .overlay(
+                        Image(systemName: "photo")
+                            .font(.system(size: 24))
+                            .foregroundColor(.gray)
+                    )
+            }
             Text(title)
                 .frame(width: 140, alignment: .leading)
                 .foregroundColor(.white)
@@ -44,7 +55,7 @@ struct CardView: View {
 }
 
 #Preview {
-    CardView(title: "Meme Title", imageName: "bogos_binted") {
+    CardView(title: "Meme Title", image: nil) {
         print("Card tapped!")
     }
     .preferredColorScheme(.dark)
