@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct DetailsView: View {
+    let meme: MemeModel
+    
     var body: some View {
         ZStack{
             Color.black
                 .ignoresSafeArea()
             VStack (alignment: .leading){
-                Text("Bogos Binted")
+                Text(meme.title)
                     .padding(.top)
                     .padding(.horizontal)
                     .font(.custom("Futura", size: 30))
@@ -30,15 +32,23 @@ struct DetailsView: View {
                 
                 ScrollView{
                     VStack(spacing: 20){
-                        Image("bogos_binted")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxWidth: 300)
+                        if let image = meme.image {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: 300)
+                        } else {
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(height: 150)
+                                .overlay(
+                                    Image(systemName: "photo")
+                                        .font(.system(size: 24))
+                                        .foregroundColor(.white.opacity(0.4))
+                                )
+                        }
                         
-                        
-                        Text("""
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique egestas tempus. Maecenas convallis euismod lorem non maximus. Vestibulum eu est leo. Mauris a diam ut orci tristique cursus. Quisque ac semper ipsum, eu tincidunt risus. Curabitur eu nisi sollicitudin, pellentesque nibh a, commodo purus. Fusce sit amet quam non. 
-                            """)
+                        Text(meme.description ?? "Speaks for itself.")
                             .font(.custom("Futura", size: 20))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -53,5 +63,11 @@ struct DetailsView: View {
 }
 
 #Preview {
-    DetailsView()
+    DetailsView(
+        meme: MemeModel(
+                    title: "Bogos Binted",
+                    image: UIImage(named: "bogos_binted"),
+                    description: "Bogos binted funny description."
+                )
+    )
 }

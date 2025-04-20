@@ -3,7 +3,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selectedMeme: MemeModel?
     @State private var memes: [MemeModel] = [
-        MemeModel(title: "Meme 1", image: UIImage(named: "bogos_binted"))
+        MemeModel(title: "Meme 1", image: UIImage(named: "bogos_binted"), description: "Funny description")
     ]
     @State private var isCreatingNew: Bool = false
     
@@ -32,7 +32,7 @@ struct ContentView: View {
                 .padding(.top, 5)
             }
             .navigationDestination(item: $selectedMeme) {
-                meme in DetailsView()
+                meme in DetailsView(meme: meme)
             }
             .navigationDestination(isPresented: $isCreatingNew) {
                 CreateCardView { newMeme in

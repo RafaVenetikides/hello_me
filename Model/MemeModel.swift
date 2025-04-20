@@ -10,4 +10,5 @@ struct MemeModel: Identifiable, Hashable {
     let id = UUID()
     let title: String
     let image: UIImage?
+    let description: String?
 }

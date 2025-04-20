@@ -30,44 +30,11 @@ struct CreateCardView: View {
                 TextField("An interesting title", text: $title)
                     .textFieldStyle(.roundedBorder)
                 
-                PhotosPicker(selection: $photoItem,
-                             matching: .images,
-                             photoLibrary: .shared()){
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.white.opacity(0.1))
-                            .frame(height: 150)
-                            .overlay(
-                                Group {
-                                    if let image = selectedImage {
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(height: 150)
-                                            .clipped()
-                                    } else {
-                                        VStack {
-                                            Image(systemName: "photo.on.rectangle")
-                                                .font(.system(size:30))
-                                                .foregroundColor(.gray)
-                                            Text("Select Image")
-                                                .foregroundColor(.gray)
-                                        }
-                                    }
-                                }
-                            )
-                    }
-                }
-                 .onChange(of: photoItem) {newItem in
-                     Task {
-                         if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                             selectedImageData = data
-                             if let uiImage = UIImage(data: data) {
-                                 selectedImage = uiImage
-                             }
-                         }
-                     }
-                 }
+                ImageSelectionView(
+                    selectedImage: $selectedImage,
+                    selectedImageData: $selectedImageData,
+                    photoItem: $photoItem
+                )
 
                 ZStack(alignment: .topLeading){
                         TextEditor(text: $description)
@@ -83,11 +50,10 @@ struct CreateCardView: View {
                     }
                 }
 
-                Button("Salvar") {
-                    let newCard = MemeModel(title: title, image: selectedImage)
-                    onSave(newCard)
-                    dismiss()
-                }
+                Button("Salvar", action: saveMeme)
+                    .disabled(title.isEmpty || selectedImage == nil)
+                    .opacity((title.isEmpty || selectedImage == nil) ? 0.5 : 1.0)
+                
                 .frame(maxWidth: .infinity)
                 .padding()
                 .background(Color.gray.opacity(0.3))
@@ -98,6 +64,12 @@ struct CreateCardView: View {
             }
             .padding()
         }
+    }
+    
+    private func saveMeme() {
+        let newCard = MemeModel(title: title, image: selectedImage, description: description)
+        onSave(newCard)
+        dismiss()
     }
 }
 
