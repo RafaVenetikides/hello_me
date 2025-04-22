@@ -10,6 +10,7 @@ struct CardGridView: View {
     let memes: [MemeModel]
     let onSelect: (MemeModel) -> Void
     let onCreate: () -> Void
+    let onDelete: (MemeModel) -> Void
 
     private let columns = [
         GridItem(.flexible()),
@@ -24,6 +25,13 @@ struct CardGridView: View {
                     image: meme.image
                 ) {
                     onSelect(meme)
+                }
+                .contextMenu {
+                    Button(role: .destructive) {
+                        onDelete(meme)
+                    } label: {
+                        Label("Excluir", systemImage: "trash")
+                    }
                 }
             }
             NewCardView(){

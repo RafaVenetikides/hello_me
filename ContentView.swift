@@ -23,9 +23,16 @@ struct ContentView: View {
                             .frame(width: 340)
                             .padding(.bottom, 16)
                         
-                        CardGridView(memes: memes,
-                                     onSelect: {meme in selectedMeme = meme},
-                                     onCreate: { isCreatingNew = true})
+                        CardGridView(
+                            memes: memes,
+                            onSelect: {meme in selectedMeme = meme},
+                            onCreate: { isCreatingNew = true},
+                            onDelete: {
+                                memeToDelete in memes.removeAll {
+                                    $0.id == memeToDelete.id
+                                }
+                            }
+                        )
                     }
                 }
                 .scrollIndicators(.hidden)
