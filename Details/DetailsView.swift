@@ -48,7 +48,7 @@ struct DetailsView: View {
                                 )
                         }
                         
-                        Text(meme.description ?? "Speaks for itself.")
+                        Text(meme.memeDescription ?? "Speaks for itself.")
                             .font(.custom("Futura", size: 20))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, alignment: .leading)

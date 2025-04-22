@@ -1,10 +1,10 @@
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
+    @Environment(\.modelContext) private var modelContext
     @State private var selectedMeme: MemeModel?
-    @State private var memes: [MemeModel] = [
-        MemeModel(title: "Meme 1", image: UIImage(named: "bogos_binted"), description: "Funny description")
-    ]
+    @Query private var memes: [MemeModel]
     @State private var isCreatingNew: Bool = false
     
     var body: some View {
@@ -27,10 +27,8 @@ struct ContentView: View {
                             memes: memes,
                             onSelect: {meme in selectedMeme = meme},
                             onCreate: { isCreatingNew = true},
-                            onDelete: {
-                                memeToDelete in memes.removeAll {
-                                    $0.id == memeToDelete.id
-                                }
+                            onDelete: { memeToDelete in
+                                modelContext.delete(memeToDelete)
                             }
                         )
                     }
@@ -43,7 +41,7 @@ struct ContentView: View {
             }
             .navigationDestination(isPresented: $isCreatingNew) {
                 CreateCardView { newMeme in
-                    memes.append(newMeme)}
+                    modelContext.insert(newMeme)}
             }
         }
     }
