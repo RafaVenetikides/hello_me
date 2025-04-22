@@ -34,7 +34,7 @@ struct CardView: View {
             Text(title)
                 .frame(width: 140, alignment: .leading)
                 .foregroundColor(.white)
-            }
+        }
         .padding(8)
         .background(
             RoundedRectangle(cornerRadius: 12)
@@ -44,14 +44,17 @@ struct CardView: View {
         .scaleEffect(isPressed ? 0.95 : 1.0)
         .animation(.easeInOut(duration: 0.1), value: isPressed)
         .onTapGesture {
-            onTap?()
+            isPressed = true
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                isPressed = false
+                onTap?()
+            }
         }
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged { _ in isPressed = true }
-                .onEnded { _ in isPressed = false }
-        )
+        .onLongPressGesture(minimumDuration: 0.4) {
+            isPressed = false
         }
+    }
 }
 
 #Preview {
