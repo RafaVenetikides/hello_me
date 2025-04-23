@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  TagView.swift
 //  Hello, Me!
 //
 //  Created by Rafael Venetikides on 16/04/25.

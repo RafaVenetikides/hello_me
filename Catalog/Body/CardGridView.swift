@@ -27,6 +27,11 @@ struct CardGridView: View {
                     onSelect(meme)
                 }
                 .contextMenu {
+                    Button {
+                        print("Edit \(meme.title.description)")
+                    } label: {
+                        Label("Editar", systemImage: "square.and.pencil")
+                    }
                     Button(role: .destructive) {
                         onDelete(meme)
                     } label: {

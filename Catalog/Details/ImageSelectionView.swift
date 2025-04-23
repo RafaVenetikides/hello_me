@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  ImageSelectionView.swift
 //  Hello, Me!
 //
 //  Created by Rafael Venetikides on 20/04/25.
@@ -42,7 +42,7 @@ struct ImageSelectionView: View {
                     )
             }
         }
-                     .onChange(of: photoItem) {newItem in
+                     .onChange(of: photoItem) { _, newItem in
                          Task {
                              if let data = try? await newItem?.loadTransferable(type: Data.self) {
                                  selectedImageData = data

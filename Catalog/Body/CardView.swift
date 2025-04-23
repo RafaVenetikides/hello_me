@@ -33,7 +33,7 @@ struct CardView: View {
             }
             Text(title)
                 .frame(width: 140, alignment: .leading)
-                .foregroundColor(.white)
+                .foregroundColor(.black.opacity(0.7))
         }
         .padding(8)
         .background(
@@ -61,6 +61,5 @@ struct CardView: View {
     CardView(title: "Meme Title", image: nil) {
         print("Card tapped!")
     }
-    .preferredColorScheme(.dark)
-    .background(Color.black)
+    .preferredColorScheme(.light)
 }
