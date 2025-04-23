@@ -10,14 +10,25 @@ import PhotosUI
 
 struct CreateCardView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelContext
     
-    @State private var title: String = ""
-    @State private var description: String = ""
+    @State private var title: String
+    @State private var description: String
     @State private var selectedImageData: Data?
     @State private var selectedImage: UIImage?
     @State private var photoItem: PhotosPickerItem?
     
+    let editing: MemeModel?
     var onSave: (MemeModel) -> Void
+    
+    init(editing: MemeModel? = nil, onSave: @escaping (MemeModel) -> Void) {
+        self.editing = editing
+        self.onSave = onSave
+        _title = State(initialValue: editing?.title ?? "")
+        _description = State(initialValue: editing?.memeDescription ?? "")
+        _selectedImageData = State(initialValue: editing?.imageData)
+        _selectedImage = State(initialValue: editing?.image)
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -65,14 +76,23 @@ struct CreateCardView: View {
     }
     
     private func saveMeme() {
-        let newCard = MemeModel(title: title, image: selectedImage, description: description)
-        onSave(newCard)
-        dismiss()
+        if let editing = editing {
+            editing.title = title
+            editing.memeDescription = description
+            editing.imageData = selectedImage?.jpegData(compressionQuality: 0.8)
+            dismiss()
+        } else{
+            let newCard = MemeModel(title: title, image: selectedImage, description: description)
+            onSave(newCard)
+            dismiss()
+        }
     }
 }
 
 #Preview {
-    CreateCardView{meme in
-        print("Salvando meme: \(meme.title)")}
+    CreateCardView { meme in
+        print("Salvando meme: \(meme.title)")
+    }
     .preferredColorScheme(.light)
+    .modelContainer(for: MemeModel.self)
 }

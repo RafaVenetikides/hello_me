@@ -10,6 +10,7 @@ struct CardGridView: View {
     let memes: [MemeModel]
     let onSelect: (MemeModel) -> Void
     let onCreate: () -> Void
+    let onEdit: (MemeModel) -> Void
     let onDelete: (MemeModel) -> Void
 
     private let columns = [
@@ -28,7 +29,7 @@ struct CardGridView: View {
                 }
                 .contextMenu {
                     Button {
-                        print("Edit \(meme.title.description)")
+                        onEdit(meme)
                     } label: {
                         Label("Editar", systemImage: "square.and.pencil")
                     }

@@ -28,6 +28,7 @@ struct CatalogView: View {
                             memes: memes,
                             onSelect: {meme in selectedMeme = meme},
                             onCreate: { isCreatingNew = true},
+                            onEdit: {meme in editedMeme = meme},
                             onDelete: { memeToDelete in
                                 modelContext.delete(memeToDelete)
                             }
@@ -46,7 +47,8 @@ struct CatalogView: View {
                 CreateCardView { newMeme in
                     modelContext.insert(newMeme)}
             }
-            //            .navigationDestination
+            .navigationDestination(item: $editedMeme) {
+                meme in CreateCardView(editing: meme) {_ in }}
         }
     }
 }
