@@ -33,10 +33,11 @@ struct CreateCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("New Meme")
-                .font(.custom("Futura", size: 28))
-                .foregroundColor(.white)
+                .font(.unnaBold(32))
+                .foregroundColor(.black)
             
             TextField("An interesting title", text: $title)
+                .font(.unnaBold(20))
                 .textFieldStyle(.roundedBorder)
             
             ImageSelectionView(
@@ -48,12 +49,17 @@ struct CreateCardView: View {
             ZStack(alignment: .topLeading){
                 TextEditor(text: $description)
                     .frame(height: 100)
+                    .font(.unnaRegular(20))
                     .background(Color.white.opacity(0.1))
+                    .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                            )
                     .cornerRadius(8)
                     .foregroundColor(.black)
-                    .textFieldStyle(.roundedBorder)
                 if (description.isEmpty) {
                     Text("Description")
+                        .font(.unnaRegular(20))
                         .foregroundColor(.black.opacity(0.2))
                         .padding(.top, 8)
                         .padding(.horizontal, 5)
@@ -73,6 +79,7 @@ struct CreateCardView: View {
             Spacer()
         }
         .padding()
+        .background(Color(red: 0.96, green: 0.96, blue: 0.95))
     }
     
     private func saveMeme() {
