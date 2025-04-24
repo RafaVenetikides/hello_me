@@ -18,10 +18,10 @@ struct ProfileHeaderView: View {
             )
         
         Text("Rafael Venetikides")
-            .font(.custom("Futura", size: 20))
+            .font(.unnaBold(22))
         HStack{
             TagView(text: "Dev", color: .blue)
-            TagView(text: "Memes", color: .green)
+            TagView(text: "Memes", color: Color(red: 0.09, green: 0.67, blue: 0.14))
             TagView(text: "Games", color: .red)
         }
         .padding(.bottom, 10)

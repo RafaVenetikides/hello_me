@@ -25,10 +25,9 @@ struct TagView: View {
 #Preview {
     HStack {
         TagView(text: "Dev", color: .blue)
-        TagView(text: "Memes", color: .green)
+        TagView(text: "Memes", color: Color(red: 0.09, green: 0.67, blue: 0.14))
         TagView(text: "Games", color: .red)
 
     }
-    .preferredColorScheme(.dark)
-    .background(Color.black)
+    .preferredColorScheme(.light)
 }

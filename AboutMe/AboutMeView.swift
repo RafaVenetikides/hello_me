@@ -20,17 +20,19 @@ struct AboutMeView: View {
                 
                 VStack(alignment: .leading) {
                     Text("About Me")
-                        .font(.headline)
+                        .font(.unnaBold(23))
                         .padding(.bottom, 8)
                     
                     Text(NSLocalizedString("About Me Description", comment: "Quick description of myself"))
+                        .font(.unnaRegular(19))
                         .padding(.bottom, 16)
                     
                     Text("About Memes")
-                        .font(.headline)
+                        .font(.unnaBold(23))
                         .padding(.bottom, 8)
                     
                     Text(NSLocalizedString("Memes", comment: "Why I choose to talk about memes"))
+                        .font(.unnaRegular(19))
                         .padding(.bottom, 16)
                 }
                 .padding(.horizontal, 16)
@@ -41,5 +43,5 @@ struct AboutMeView: View {
 
 #Preview {
     AboutMeView()
-        .preferredColorScheme(.dark)
+        .preferredColorScheme(.light)
 }
