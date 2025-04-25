@@ -66,15 +66,16 @@ struct CreateCardView: View {
                 }
             }
             
-            Button("Salvar", action: saveMeme)
-                .disabled(title.isEmpty || selectedImage == nil)
-                .opacity((title.isEmpty || selectedImage == nil) ? 0.5 : 1.0)
-            
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.blue.opacity((title.isEmpty || selectedImage == nil) ? 0.5 : 1.0))
-                .foregroundColor(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+            Button(action: saveMeme) {
+                Text("Salvar")
+                    .font(.unnaRegular(18))
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue.opacity((title.isEmpty || selectedImage == nil) ? 0.5 : 1.0))
+                    .foregroundColor(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+            .disabled(title.isEmpty || selectedImage == nil)
             
             Spacer()
         }
