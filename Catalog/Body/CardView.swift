@@ -10,6 +10,7 @@ import SwiftUI
 struct CardView: View {
     let title: String
     let image: UIImage?
+    let frameName: String?
     var onTap: (() -> Void)? = nil
     
     @State private var isPressed = false
@@ -42,6 +43,15 @@ struct CardView: View {
                 .fill(isPressed ? Color.gray.opacity(0.35) : Color.gray.opacity(0.2))
         )
         .frame(width: 150, height: 165)
+        .overlay(Group {
+            if let frameName = frameName {
+                Image(frameName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 180)
+                    .clipped()
+            }
+        })
         .scaleEffect(isPressed ? 0.95 : 1.0)
         .animation(.easeInOut(duration: 0.1), value: isPressed)
         .onTapGesture {
@@ -59,8 +69,31 @@ struct CardView: View {
 }
 
 #Preview {
-    CardView(title: "Artwork Name", image: nil) {
+    CardView(
+        title: "Artwork Name",
+        image: UIImage(named: "bogos_binted"),
+        frameName: "Frame1"
+    ) {
         print("Card tapped!")
     }
     .preferredColorScheme(.light)
+    .padding()
+    CardView(
+        title: "Artwork Name",
+        image: UIImage(named: "bogos_binted"),
+        frameName: "Frame2"
+    ) {
+        print("Card tapped!")
+    }
+    .preferredColorScheme(.light)
+    .padding()
+    CardView(
+        title: "Artwork Name",
+        image: UIImage(named: "bogos_binted"),
+        frameName: "Frame3"
+    ) {
+        print("Card tapped!")
+    }
+    .preferredColorScheme(.light)
+    .padding()
 }

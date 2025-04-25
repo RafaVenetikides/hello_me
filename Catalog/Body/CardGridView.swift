@@ -23,7 +23,8 @@ struct CardGridView: View {
             ForEach(memes) { meme in
                 CardView(
                     title: meme.title,
-                    image: meme.image
+                    image: meme.image,
+                    frameName: meme.frameName
                 ) {
                     onSelect(meme)
                 }
